@@ -24,14 +24,6 @@ async function run() {
         repo: github.context.repo.repo,
         release_id: previousRelease.id,
       });
-      
-      // Delete the tag associated with the pre-release
-      await octokit.git.deleteRef({
-        owner: github.context.repo.owner,
-        repo: github.context.repo.repo,
-        ref: `tags/${previousRelease.tag_name}`
-      });
-
       core.setOutput('deleted', true);
     } else {
       core.setOutput('deleted', false);
