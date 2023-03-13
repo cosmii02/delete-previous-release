@@ -11,7 +11,7 @@ async function run() {
       });
 
       // Find the oldest pre-release
-      const oldestPreRelease = releases.filter(release => release.prerelease).sort((a, b) => a.created_at.localeCompare(b.created_at))[0];
+      const oldestPreRelease = releases.filter(release => release.prerelease).sort((a, b) => new Date(a.created_at) - new Date(b.created_at))[0];
 
       // Check if there is an older pre-release to delete
       if (oldestPreRelease) {
@@ -32,3 +32,5 @@ async function run() {
     core.setFailed(error.message);
   }
 }
+
+run();
