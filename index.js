@@ -13,12 +13,12 @@ async function run() {
     // Find the latest pre-release
     const latestPreRelease = releases.filter(release => release.prerelease).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
 
-    // Find the release before the latest one
-    const previousRelease = releases.filter(release => !release.prerelease && release.id !== latestPreRelease.id).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
+    // Find the release before the latest pre-release
+    const previousRelease = releases.filter(release => release.prerelease && release.id !== latestPreRelease.id).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
 
-    // Check if there is a release to delete
+    // Check if there is a pre-release to delete
     if (previousRelease) {
-      // Delete the release before the latest one
+      // Delete the pre-release before the latest one
       await octokit.rest.repos.deleteRelease({
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
