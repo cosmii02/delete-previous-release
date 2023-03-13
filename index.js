@@ -1,5 +1,6 @@
 async function run() {
   try {
+    const core = require('@actions/core');
     const token = core.getInput('token');
     const octokit = github.getOctokit(token);
     const eventName = github.context.eventName;
