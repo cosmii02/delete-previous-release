@@ -10,9 +10,8 @@ inputs:
 outputs:
   deleted:
     description: 'Indicates whether the previous release was deleted successfully.'
-    value: ${{ success() }}
+    value: true
 
 runs:
   using: 'node12'
   main: 'index.js'
-
