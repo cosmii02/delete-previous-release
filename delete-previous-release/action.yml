@@ -1,0 +1,17 @@
+name: 'Delete Previous Release'
+
+description: 'Deletes the previous release if it is marked as a pre-release.'
+
+inputs:
+  token:
+    description: 'The GitHub access token.'
+    required: true
+
+outputs:
+  deleted:
+    description: 'Indicates whether the previous release was deleted successfully.'
+    value: ${{ success() }}
+
+runs:
+  using: 'node12'
+  main: 'index.js'
