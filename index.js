@@ -10,16 +10,16 @@ async function run() {
         repo: github.context.repo.repo,
       });
 
-      // Get the previous release
-      const prevRelease = releases.find(release => release.id === github.context.payload.release.id - 1);
+      // Find the oldest pre-release
+      const oldestPreRelease = releases.filter(release => release.prerelease).sort((a, b) => a.created_at.localeCompare(b.created_at))[0];
 
-      // Check if the previous release is a pre-release
-      if (prevRelease && prevRelease.prerelease) {
-        // Delete the previous release
+      // Check if there is an older pre-release to delete
+      if (oldestPreRelease) {
+        // Delete the oldest pre-release
         await octokit.rest.repos.deleteRelease({
           owner: github.context.repo.owner,
           repo: github.context.repo.repo,
-          release_id: prevRelease.id,
+          release_id: oldestPreRelease.id,
         });
         core.setOutput('deleted', true);
       } else {
